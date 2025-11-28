@@ -28,24 +28,13 @@ public class EmailService {
             Map<String, Object> bodyVisitante = new HashMap<>();
             bodyVisitante.put("from", "onboarding@resend.dev");
             bodyVisitante.put("to", emailVisitante);
-            bodyVisitante.put("subject", "Seja muito bem-vindo(a)! 🚀 | Geração Extraordinária");
+            bodyVisitante.put("subject", "Ola! Mensagem da Celula");
 
             String htmlVisitante = String.format(
-                    "<div style='font-family: Arial, sans-serif; color: #333; max-width: 600px;'>" +
-                            "<h2 style='color: #057EB9;'>Olá %s, a paz do Senhor! 🕊️</h2>" +
-                            "<p>Que alegria imensa receber seu contato! Ficamos muito honrados com seu interesse em conhecer nossa família.</p>" +
-                            "<p>Somos a célula <strong>Geração Extraordinária</strong>, um lugar de comunhão, palavra de Deus e novas amizades.</p>" +
-                            "<hr style='border: 1px solid #eee; margin: 20px 0;'>" +
-                            "<h3>📅 Venha participar do nosso próximo encontro:</h3>" +
-                            "<p><strong>Quando:</strong> Todas ás terça feira, às 20:30h</p>" +
-                            "<p><strong>Onde:</strong> RUA JABOTICABAL, QD 82 LT 20, Luziânia - GO</p>" +
-                            "<p><a href='https://maps.app.goo.gl/UAemPdwa7x83QFXa6' style='background-color: #057EB9; color: white; padding: 10px 15px; text-decoration: none; border-radius: 5px;'>📍 Abrir no Google Maps</a></p>" +
-                            "<hr style='border: 1px solid #eee; margin: 20px 0;'>" +
-                            "<p>Já anotamos seu WhatsApp <strong>(%s)</strong> e, em breve, um de nossos líderes entrará em contato para te dar as boas-vindas pessoalmente.</p>" +
-                            "<p>Esperamos ver você em breve!</p>" +
-                            "<p>Com carinho,<br><strong>Equipe Geração Extraordinária</strong></p>" +
-                            "</div>",
-                    nome, telefone
+                    "<p>Ola %s.</p>" +
+                            "<p>Recebemos seu cadastro com sucesso.</p>" +
+                            "<p>Vamos entrar em contato pelo WhatsApp em breve.</p>",
+                    nome
             );
             bodyVisitante.put("html", htmlVisitante);
 
@@ -57,27 +46,21 @@ public class EmailService {
             Map<String, Object> bodyLider = new HashMap<>();
             bodyLider.put("from", "onboarding@resend.dev");
             bodyLider.put("to", seuEmailReal);
-            bodyLider.put("subject", "🎯 NOVO VISITANTE: " + nome);
+            bodyLider.put("subject", "Novo cadastro no site");
 
             String htmlLider = String.format(
-                    "<div style='font-family: Arial, sans-serif;'>" +
-                            "<h2 style='color: #d9534f;'>🔔 Novo Cadastro no Site!</h2>" +
-                            "<p>Uma pessoa acabou de preencher o formulário de interesse. Entre em contato o quanto antes!</p>" +
-                            "<div style='background-color: #f9f9f9; padding: 15px; border-radius: 5px; border-left: 5px solid #057EB9;'>" +
-                            "<p><strong>👤 Nome:</strong> %s</p>" +
-                            "<p><strong>📱 WhatsApp:</strong> <a href='https://wa.me/55%s'>%s</a> (Clique para chamar)</p>" +
-                            "<p><strong>✉️ E-mail:</strong> %s</p>" +
-                            "</div>" +
-                            "<p><em>Sistema de Landing Page - Geração Extraordinária</em></p>" +
-                            "</div>",
-                    nome, telefone.replaceAll("[^0-9]", ""), telefone, emailVisitante
+                    "<p>Novo cadastro recebido:</p>" +
+                            "<p>Nome: %s</p>" +
+                            "<p>Telefone: %s</p>" +
+                            "<p>Email: %s</p>",
+                    nome, telefone, emailVisitante
             );
             bodyLider.put("html", htmlLider);
 
             HttpEntity<Map<String, Object>> requestLider = new HttpEntity<>(bodyLider, headers);
             restTemplate.postForEntity(url, requestLider, String.class);
 
-            System.out.println("E-mails enviados via Resend API com sucesso!");
+            System.out.println("Emails enviados com sucesso via Resend");
 
         } catch (Exception e) {
             e.printStackTrace();
