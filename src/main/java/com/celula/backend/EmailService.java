@@ -25,42 +25,30 @@ public class EmailService {
             headers.setContentType(MediaType.APPLICATION_JSON);
             headers.set("Authorization", "Bearer " + resendApiKey);
 
-            Map<String, Object> bodyVisitante = new HashMap<>();
-            bodyVisitante.put("from", "onboarding@resend.dev");
-            bodyVisitante.put("to", emailVisitante);
-            bodyVisitante.put("subject", "Ola! Mensagem da Celula");
-
-            String htmlVisitante = String.format(
-                    "<p>Ola %s.</p>" +
-                            "<p>Recebemos seu cadastro com sucesso.</p>" +
-                            "<p>Vamos entrar em contato pelo WhatsApp em breve.</p>",
-                    nome
-            );
-            bodyVisitante.put("html", htmlVisitante);
-
-            HttpEntity<Map<String, Object>> requestVisitante = new HttpEntity<>(bodyVisitante, headers);
-            restTemplate.postForEntity(url, requestVisitante, String.class);
-
             String seuEmailReal = "pedrohenriquemenezes76@gmail.com";
 
             Map<String, Object> bodyLider = new HashMap<>();
             bodyLider.put("from", "onboarding@resend.dev");
             bodyLider.put("to", seuEmailReal);
-            bodyLider.put("subject", "Novo cadastro no site");
+            bodyLider.put("subject", "NOVO VISITANTE: " + nome);
 
             String htmlLider = String.format(
-                    "<p>Novo cadastro recebido:</p>" +
-                            "<p>Nome: %s</p>" +
-                            "<p>Telefone: %s</p>" +
-                            "<p>Email: %s</p>",
-                    nome, telefone, emailVisitante
+                    "<div style='font-family: Arial, sans-serif;'>" +
+                            "<h2 style='color: #d9534f;'>Novo Cadastro no Site!</h2>" +
+                            "<div style='background-color: #f9f9f9; padding: 15px; border-radius: 5px; border-left: 5px solid #057EB9;'>" +
+                            "<p><strong>Nome:</strong> %s</p>" +
+                            "<p><strong>WhatsApp:</strong> <a href='https://wa.me/55%s'>%s</a></p>" +
+                            "<p><strong>E-mail:</strong> %s</p>" +
+                            "</div>" +
+                            "</div>",
+                    nome, telefone.replaceAll("[^0-9]", ""), telefone, emailVisitante
             );
             bodyLider.put("html", htmlLider);
 
             HttpEntity<Map<String, Object>> requestLider = new HttpEntity<>(bodyLider, headers);
             restTemplate.postForEntity(url, requestLider, String.class);
 
-            System.out.println("Emails enviados com sucesso via Resend");
+            System.out.println("Aviso enviado para o líder com sucesso!");
 
         } catch (Exception e) {
             e.printStackTrace();
