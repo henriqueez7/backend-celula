@@ -11,10 +11,8 @@ public class EmailService {
     @Autowired
     private JavaMailSender mailSender;
 
-    // SEU E-MAIL (Vai enviar e receber o alerta)
     private final String MEU_EMAIL = "pedrohenriquemenezes76@gmail.com";
 
-    // Link da localização fixo
     private final String LINK_MAPS = "-16.150226, -47.954381";
     private final String ENDERECO_TEXTO = "RUA JABOTICABAL, QD 82 LT 20, Luziânia - GO";
 
